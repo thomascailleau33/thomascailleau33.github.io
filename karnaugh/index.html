@@ -1,0 +1,115 @@
+<!doctype html>
+
+<html lang="fr">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <title>Tableau de Karnaugh</title>
+
+    <script src='./karnaughmap.js'></script>
+
+    <script src='./qmc.js'></script>
+
+    <script language="JavaScript" type="text/javascript">
+
+      var karnaugh = -1;
+
+      var qmc = -1;
+
+      function run() {
+
+        qmc = new QuineMcCluskey("fakeDivId", 2, 4, 0); 
+
+        //qmc = new QuineMcCluskey("myQmcDisplay", 2, 4, 0); // enable for debugging
+
+        qmc.init();
+
+      
+
+        karnaugh = new KarnaughMap("myKarnaughMap", qmc);
+
+        karnaugh.init();
+
+      }
+
+      
+
+      function noOfVarsChanged() {
+
+        var d = document.getElementById("noOfVarsChanged_id").value;
+
+        karnaugh.setNoOfVars(d);
+
+      }
+
+      
+
+      function dontCareChanged() {
+
+        var d = document.getElementById("select_dontCare").value;
+
+        karnaugh.allowDontCares(d);
+
+      } 
+
+      
+
+    </script>
+
+    <style type="text/css">
+
+      .qmcMathFont{font-family:"Times New Roman",Georgia,Serif;}
+
+    </style>
+
+  </head>
+
+  <body onload="run();">
+
+      <button type="button" onclick="karnaugh.genRandom();">Exemple aléatoire</button>
+      <button type="button" onclick="karnaugh.clear();">Reset</button>
+      <br>
+
+      Nombre de variables:
+
+      <select onchange="noOfVarsChanged();" id="noOfVarsChanged_id">
+
+        <option value="1">1</option>
+
+        <option value="2">2</option>
+
+        <option value="3">3</option>
+
+        <option value="4" selected>4</option>
+
+        <option value="5" >5</option>
+
+        <option value="6">6</option>
+
+        <option value="7">7</option>
+
+        <option value="8">8</option>
+
+      </select>
+     <br>Permettre les cases indéterminées:
+
+      <select onchange="dontCareChanged();" id="select_dontCare">
+
+        <option value="0" selected>Non</option>
+
+        <option value="1">Oui</option>
+
+      </select>  <br>
+
+    </p>    
+
+    <div id="myKarnaughMap"> </div>
+
+    <div id="myQmcDisplay"></div>
+
+  </body>
+
+</html>
+
